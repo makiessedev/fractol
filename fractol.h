@@ -1,4 +1,10 @@
 #include "./mlx_linux/mlx.h"
+#include <X11/keysym.h>
+#include <X11/X.h>
+
+// to remove
+#include <stdio.h>
+#include <stdlib.h>
 
 typedef struct s_img
 {
@@ -20,6 +26,8 @@ typedef struct s_datas
 	void			*mlx;
 	void			*mlx_win;
 	t_img		img;
-	t_complex		c;
-	t_complex		lim;
+    double  zoom;
 }	t_datas;
+
+#define WIDTH 800
+#define HEIGHT 800
