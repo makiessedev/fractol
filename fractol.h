@@ -26,6 +26,7 @@ typedef struct s_datas
 	void			*mlx;
 	void			*mlx_win;
 	t_img		img;
+    t_complex   offset;
     double  zoom;
 }	t_datas;
 
