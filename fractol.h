@@ -38,6 +38,12 @@ typedef struct s_datas
 #define WIDTH 800
 #define HEIGHT 800
 
+# define DBL_MAX	1.7976931348623157e+308
+# define DBL_MIN	2.2250738585072014e-308
+
 int ft_strncmp(char *s1, char *s2, int n);
-double  ft_atod(char *s);
 void ft_putstr(char *s);
+double	ft_atoi_f(const char *str);
+int mouse_scroll(int keycode, int x, int y, t_datas *vars);
+int key_handler(int keycode, t_datas *vars);
+void    render_fractal(t_datas vars);

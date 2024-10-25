@@ -1,13 +1,5 @@
 #include "fractol.h"
 
-# define DBL_MAX	1.7976931348623157e+308
-# define DBL_MIN	2.2250738585072014e-308
-
-int	ft_isdigit(char c)
-{
-	return (c >= '0' && c <= '9');
-}
-
 void    my_mlx_pixel_put(t_img *data, int x, int y, int color)
 {
     char    *dst;
@@ -16,35 +8,14 @@ void    my_mlx_pixel_put(t_img *data, int x, int y, int color)
     *(unsigned int*)dst = color;
 }
 
-t_complex	add(t_complex a, t_complex b)
-{
-	t_complex	res;
-
-	res.x = a.x + b.x;
-	res.y = a.y + b.y;
-	return (res);
-}
-
-t_complex	mult(t_complex a, t_complex b)
-{
-	t_complex	res;
-
-	res.x = (a.x * b.x) - (a.y * b.y);
-	res.y = (a.x * b.y) + (a.y * b.x);
-	return (res);
-}
-
 int calc_zn(t_datas vars)
 {
     t_complex z;
-    //c = vars.c;
-    //t_complex c = {vars.c2.x, vars.c2.y};
-    
-    
+    t_complex temp;
+    int i;
 
     if (vars.is_julia == 1)
     {
-        //c = vars.c;
         z.x = vars.z.x;
         z.y = vars.z.y;
         vars.c = vars.c2;
@@ -55,17 +26,12 @@ int calc_zn(t_datas vars)
         z.y = 0.0;
     }
 
-
-    /* z.x = vars.z.x;
-        z.y = vars.z.y; */
-
-     // {-0.761682243, 0.088785046};
-    int i;
-
     i = 1;
     while (i < 100)
     {
-        z = add(mult(z, z), vars.c);
+        temp.x = (z.x * z.x) - (z.y * z.y) + vars.c.x;
+        temp.y = 2 * z.x * z.y + vars.c.y;
+        z = temp;
 
         if ((z.x * z.x) + (z.y * z.y) >= 4.0)
             return (i * 0x03989e);
@@ -76,7 +42,6 @@ int calc_zn(t_datas vars)
 
 void    render_fractal(t_datas vars)
 {
-    //t_complex c = {-2.0,2.0};
     t_complex pixel = {-1.0, -1.0};
     double    scale;
 
@@ -97,73 +62,6 @@ void    render_fractal(t_datas vars)
     mlx_put_image_to_window(vars.mlx, vars.mlx_win, vars.img.img, 0, 0);
 }
 
-int mouse_scroll(int keycode, int x, int y, t_datas *vars)
-{
-    (void)x;
-    (void)y;
-    if (keycode == Button4) // SCROLL_UP
-        vars->zoom *= 0.9;
-    else if (keycode == Button5) // SCROLL_DOWN
-        vars->zoom *= 1.1;
-    render_fractal(*vars);
-    return (0);
-}
-
-int key_handler(int keycode, t_datas *vars)
-{
-    if (keycode == XK_Left)
-        vars->offset.x += (0.5 * vars->zoom);
-    else if (keycode == XK_Right)
-        vars->offset.x -= (0.5 * vars->zoom);
-    else if (keycode == XK_Down)
-        vars->offset.y += (0.5 * vars->zoom);
-    else if (keycode == XK_Up)
-        vars->offset.y -= (0.5 * vars->zoom);
-    render_fractal(*vars);
-    return (0);
-}
-
-double	ft_atoi_f_2(const char *str, double fraction, double result)
-{
-	if (*str == '.')
-	{
-		str++;
-		while (ft_isdigit(*str))
-		{
-			result = result + ((*str++) - '0') * fraction;
-			fraction /= 10;
-		}
-	}
-	return (result);
-}
-
-double	ft_atoi_f(const char *str)
-{
-	double	result;
-	double	fraction;
-	int		sign;
-
-	sign = 1;
-	result = 0.0;
-	fraction = 0.1;
-	if (*str == '-' || *str == '+')
-	{
-		if (*str == '-')
-			sign = -1;
-		str++;
-	}
-	while (ft_isdigit(*str))
-	{
-		result = result * 10 + (*str - '0');
-		if (result * sign > DBL_MAX)
-			return (DBL_MAX);
-		if (result * sign < -DBL_MAX)
-			return (-DBL_MAX);
-		str++;
-	}
-	result = ft_atoi_f_2(str, fraction, result);
-	return (result * sign);
-}
 int main(int ac, char **av)
 {
     t_datas	vars;
