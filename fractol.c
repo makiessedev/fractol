@@ -1,5 +1,13 @@
 #include "fractol.h"
 
+# define DBL_MAX	1.7976931348623157e+308
+# define DBL_MIN	2.2250738585072014e-308
+
+int	ft_isdigit(char c)
+{
+	return (c >= '0' && c <= '9');
+}
+
 void    my_mlx_pixel_put(t_img *data, int x, int y, int color)
 {
     char    *dst;
@@ -8,18 +16,56 @@ void    my_mlx_pixel_put(t_img *data, int x, int y, int color)
     *(unsigned int*)dst = color;
 }
 
-int calc_zn(t_complex c)
+t_complex	add(t_complex a, t_complex b)
 {
-    t_complex temp;
-    t_complex z = {0.0, 0.0};
+	t_complex	res;
+
+	res.x = a.x + b.x;
+	res.y = a.y + b.y;
+	return (res);
+}
+
+t_complex	mult(t_complex a, t_complex b)
+{
+	t_complex	res;
+
+	res.x = (a.x * b.x) - (a.y * b.y);
+	res.y = (a.x * b.y) + (a.y * b.x);
+	return (res);
+}
+
+int calc_zn(t_datas vars)
+{
+    t_complex z;
+    //c = vars.c;
+    //t_complex c = {vars.c2.x, vars.c2.y};
+    
+    
+
+    if (vars.is_julia == 1)
+    {
+        //c = vars.c;
+        z.x = vars.z.x;
+        z.y = vars.z.y;
+        vars.c = vars.c2;
+    }
+    else if (vars.is_julia == 0)
+    {
+        z.x = 0.0;
+        z.y = 0.0;
+    }
+
+
+    /* z.x = vars.z.x;
+        z.y = vars.z.y; */
+
+     // {-0.761682243, 0.088785046};
     int i;
 
     i = 1;
     while (i < 100)
     {
-        temp.x = (z.x * z.x) - (z.y * z.y) + c.x;
-        temp.y = 2 * z.x * z.y + c.y;
-        z = temp;
+        z = add(mult(z, z), vars.c);
 
         if ((z.x * z.x) + (z.y * z.y) >= 4.0)
             return (i * 0x03989e);
@@ -42,7 +88,9 @@ void    render_fractal(t_datas vars)
         pixel.y = -1.0;
         while (++pixel.y < HEIGHT)
         {
-            my_mlx_pixel_put(&vars.img, pixel.x, pixel.y, calc_zn(vars.c));
+            vars.z.x = vars.c.x;
+            vars.z.y = vars.c.y;
+            my_mlx_pixel_put(&vars.img, pixel.x, pixel.y, calc_zn(vars));
             vars.c.y -= scale;
         }
     }
@@ -75,6 +123,47 @@ int key_handler(int keycode, t_datas *vars)
     return (0);
 }
 
+double	ft_atoi_f_2(const char *str, double fraction, double result)
+{
+	if (*str == '.')
+	{
+		str++;
+		while (ft_isdigit(*str))
+		{
+			result = result + ((*str++) - '0') * fraction;
+			fraction /= 10;
+		}
+	}
+	return (result);
+}
+
+double	ft_atoi_f(const char *str)
+{
+	double	result;
+	double	fraction;
+	int		sign;
+
+	sign = 1;
+	result = 0.0;
+	fraction = 0.1;
+	if (*str == '-' || *str == '+')
+	{
+		if (*str == '-')
+			sign = -1;
+		str++;
+	}
+	while (ft_isdigit(*str))
+	{
+		result = result * 10 + (*str - '0');
+		if (result * sign > DBL_MAX)
+			return (DBL_MAX);
+		if (result * sign < -DBL_MAX)
+			return (-DBL_MAX);
+		str++;
+	}
+	result = ft_atoi_f_2(str, fraction, result);
+	return (result * sign);
+}
 int main(int ac, char **av)
 {
     t_datas	vars;
@@ -93,12 +182,14 @@ int main(int ac, char **av)
     {
         vars.c.x = -2.0;
         vars.c.y = 2.0;
+        vars.is_julia = 0;
         render_fractal(vars);
     }
     else if (ac == 4 && ft_strncmp(av[1], "julia", 5) == 0)
     {
-        vars.c.x = ft_atod(av[2]);
-        vars.c.y = ft_atod(av[3]);
+        vars.c2.x = ft_atoi_f(av[2]);
+        vars.c2.y = ft_atoi_f(av[3]);
+        vars.is_julia = 1;
         render_fractal(vars);
     }
     else

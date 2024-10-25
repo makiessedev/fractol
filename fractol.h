@@ -31,6 +31,8 @@ typedef struct s_datas
     double  zoom;
     int is_julia;
     t_complex c;
+    t_complex c2;
+    t_complex z;
 }	t_datas;
 
 #define WIDTH 800

@@ -24,6 +24,7 @@ void ft_putstr(char *s)
         write (1, &s[i], 1);
 }
 
+
 double  ft_atod(char *s)
 {
     long    int_part;
