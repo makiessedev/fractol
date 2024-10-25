@@ -1,6 +1,7 @@
 #include "./mlx_linux/mlx.h"
 #include <X11/keysym.h>
 #include <X11/X.h>
+#include <unistd.h>
 
 // to remove
 #include <stdio.h>
@@ -28,7 +29,13 @@ typedef struct s_datas
 	t_img		img;
     t_complex   offset;
     double  zoom;
+    int is_julia;
+    t_complex c;
 }	t_datas;
 
 #define WIDTH 800
 #define HEIGHT 800
+
+int ft_strncmp(char *s1, char *s2, int n);
+double  ft_atod(char *s);
+void ft_putstr(char *s);
