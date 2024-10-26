@@ -6,7 +6,7 @@
 /*   By: mmorais <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 08:06:33 by mmorais           #+#    #+#             */
-/*   Updated: 2024/10/26 09:43:55 by mmorais          ###   ########.fr       */
+/*   Updated: 2024/10/26 10:47:37 by mmorais          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef FRACTOL_H
@@ -57,12 +57,14 @@ typedef struct s_datas
 
 void		render_fractal(t_datas vars);
 void		ft_putstr(char *s);
+void		hooks_wrapper(t_datas vars);
+void		mlx_init_datas(t_datas *vars);
 double		ft_atoi_f(const char *str);
 int			ft_strncmp(char *s1, char *s2, int n);
 int			mouse_scroll(int keycode, int x, int y, t_datas *vars);
 int			key_handler(int keycode, t_datas *vars);
 int			handle_close_window(t_datas *vars);
-int	ft_isdigit(char c);
+int			ft_isdigit(char c);
 t_complex	add(t_complex a, t_complex b);
 t_complex	mult(t_complex a, t_complex b);
 #endif

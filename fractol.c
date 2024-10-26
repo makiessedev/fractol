@@ -6,7 +6,7 @@
 /*   By: mmorais <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 08:20:36 by mmorais           #+#    #+#             */
-/*   Updated: 2024/10/26 09:25:06 by mmorais          ###   ########.fr       */
+/*   Updated: 2024/10/26 10:48:15 by mmorais          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,17 +75,10 @@ int	main(int ac, char **av)
 {
 	t_datas	vars;
 
-	if ((ac == 2 && ft_strncmp(av[1], "mandelbrot", 10) == 0) 
-			|| (ac == 4 && ft_strncmp(av[1], "julia", 5) == 0))
+	if ((ac == 2 && ft_strncmp(av[1], "mandelbrot", 10) == 0)
+		|| (ac == 4 && ft_strncmp(av[1], "julia", 5) == 0))
 	{
-		vars.mlx = mlx_init();
-		vars.mlx_win = mlx_new_window(vars.mlx, WIDTH, WIDTH, "Fract-ol");
-		vars.img.img = mlx_new_image(vars.mlx, WIDTH, WIDTH);
-		vars.img.addr = mlx_get_data_addr(vars.img.img, &vars.img.bits_per_pixel, 
-				&vars.img.line_length, &vars.img.endian);
-		vars.zoom = 1;
-		vars.offset.x = -2.0;
-		vars.offset.y = 0.0;
+		mlx_init_datas(&vars);
 		if (ac == 2 && ft_strncmp(av[1], "mandelbrot", 10) == 0)
 		{
 			vars.c.x = -2.0;
@@ -102,10 +95,7 @@ int	main(int ac, char **av)
 		}
 	}
 	else
-		return (ft_putstr("Error: ./fractal <mandelbrot> || ./fractal <julia> <x> <y>\n"), 0);
-	mlx_mouse_hook(vars.mlx_win, mouse_scroll, &vars);
-	mlx_hook(vars.mlx_win, KeyPress, KeyPressMask, key_handler, &vars);
-	mlx_hook (vars.mlx_win, 17, 0, handle_close_window, &vars);
-	mlx_loop(vars.mlx);
-	 return (0);
+		return (ft_putstr("Error: parameters"), 0);
+	hooks_wrapper(vars);
+	return (0);
 }

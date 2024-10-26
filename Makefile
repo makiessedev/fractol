@@ -2,7 +2,7 @@ NAME=fractol
 CC=cc
 C_FLAGS = -Wall -Wextra -Werror -g
 MLX_FLAGS = -Lminilibx-linux -l:libmlx_Linux.a -L/usr/lib -lXext -lX11 -lm -lz
-C_FILES = fractol.c utils.c events.c atoid.c
+C_FILES = fractol.c utils.c fractol_utils.c atoid.c
 C_OBJ = $(C_FILES:.c=.o)
 
 $(NAME): $(C_OBJ)
