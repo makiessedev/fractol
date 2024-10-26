@@ -1,1 +1,3 @@
 *.o
+*.sw*
+minilibx-linux

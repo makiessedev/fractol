@@ -1,7 +1,7 @@
 NAME=fractol
 CC=cc
 C_FLAGS = -Wall -Wextra -Werror -g
-MLX_FLAGS = -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
+MLX_FLAGS = -Lminilibx-linux -l:libmlx_Linux.a -L/usr/lib -lXext -lX11 -lm -lz
 C_FILES = fractol.c utils.c events.c
 C_OBJ = $(C_FILES:.c=.o)
 
