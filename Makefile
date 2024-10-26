@@ -6,6 +6,7 @@ C_FILES = fractol.c utils.c fractol_utils.c atoid.c
 C_OBJ = $(C_FILES:.c=.o)
 
 $(NAME): $(C_OBJ)
+	make -C ./minilibx-linux
 	$(CC) $(C_FLAGS) $(C_FILES) $(MLX_FLAGS) -o $(NAME)
 all: $(NAME)
 
