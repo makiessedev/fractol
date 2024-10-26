@@ -66,35 +66,37 @@ int main(int ac, char **av)
 {
     t_datas	vars;
 
-	vars.mlx = mlx_init();
-	vars.mlx_win = mlx_new_window(vars.mlx, WIDTH, WIDTH, "Fract-ol");
-	vars.img.img = mlx_new_image(vars.mlx, WIDTH, WIDTH);
-    vars.img.addr = mlx_get_data_addr(vars.img.img, &vars.img.bits_per_pixel, &vars.img.line_length, &vars.img.endian);
-
-    vars.zoom = 1;
-    vars.offset.x = -2.0;
-    vars.offset.y = 0.0;
-
-
-    if (ac == 2 && ft_strncmp(av[1], "mandelbrot", 10) == 0)
+    if ((ac == 2 && ft_strncmp(av[1], "mandelbrot", 10) == 0) || (ac == 4 && ft_strncmp(av[1], "julia", 5) == 0))
     {
-        vars.c.x = -2.0;
-        vars.c.y = 2.0;
-        vars.is_julia = 0;
-        render_fractal(vars);
-    }
-    else if (ac == 4 && ft_strncmp(av[1], "julia", 5) == 0)
-    {
-        vars.c2.x = ft_atoi_f(av[2]);
-        vars.c2.y = ft_atoi_f(av[3]);
-        vars.is_julia = 1;
-        render_fractal(vars);
+        vars.mlx = mlx_init();
+	    vars.mlx_win = mlx_new_window(vars.mlx, WIDTH, WIDTH, "Fract-ol");
+	    vars.img.img = mlx_new_image(vars.mlx, WIDTH, WIDTH);
+        vars.img.addr = mlx_get_data_addr(vars.img.img, &vars.img.bits_per_pixel, &vars.img.line_length, &vars.img.endian);
+
+        vars.zoom = 1;
+        vars.offset.x = -2.0;
+        vars.offset.y = 0.0;
+        if (ac == 2 && ft_strncmp(av[1], "mandelbrot", 10) == 0)
+        {
+            vars.c.x = -2.0;
+            vars.c.y = 2.0;
+            vars.is_julia = 0;
+            render_fractal(vars);
+        }
+        else if (ac == 4 && ft_strncmp(av[1], "julia", 5) == 0)
+        {
+            vars.c2.x = ft_atoi_f(av[2]);
+            vars.c2.y = ft_atoi_f(av[3]);
+            vars.is_julia = 1;
+            render_fractal(vars);
+        }
     }
     else
         return (ft_putstr("Error: ./fractal <mandelbrot> || ./fractal <julia> <x> <y>\n"), 0);
 
     mlx_mouse_hook(vars.mlx_win, mouse_scroll, &vars);
     mlx_hook(vars.mlx_win, KeyPress, KeyPressMask, key_handler, &vars);
+    mlx_hook (vars.mlx_win, 17, 0, handle_close_window, &vars);
 	mlx_loop(vars.mlx);
 
     return (0);

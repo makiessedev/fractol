@@ -47,3 +47,4 @@ double	ft_atoi_f(const char *str);
 int mouse_scroll(int keycode, int x, int y, t_datas *vars);
 int key_handler(int keycode, t_datas *vars);
 void    render_fractal(t_datas vars);
+int handle_close_window(t_datas *vars);
