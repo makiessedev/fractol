@@ -6,7 +6,6 @@ int handle_close_window(t_datas *vars)
     mlx_destroy_window(vars->mlx, vars->mlx_win);
     mlx_destroy_display(vars->mlx);
     free(vars->mlx);
-    //free(vars->img.addr);
     exit(0);
 }
 

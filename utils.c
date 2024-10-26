@@ -41,44 +41,20 @@ void	ft_putstr(char *s)
 		write (1, &s[i], 1);
 }
 
-static double	ft_atoi_f_2(const char *str, double fraction, double result)
+t_complex	add(t_complex a, t_complex b)
 {
-	if (*str == '.')
-	{
-		str++;
-		while (ft_isdigit(*str))
-		{
-			result = result + ((*str++) - '0') * fraction;
-			fraction /= 10;
-		}
-	}
-	return (result);
+	t_complex	res;
+
+	res.x = a.x + b.x;
+	res.y = a.y + b.y;
+	return (res);
 }
 
-double	ft_atoi_f(const char *str)
+t_complex	mult(t_complex a, t_complex b)
 {
-	double	result;
-	double	fraction;
-	int		sign;
+	t_complex	res;
 
-	sign = 1;
-	result = 0.0;
-	fraction = 0.1;
-	if (*str == '-' || *str == '+')
-	{
-		if (*str == '-')
-			sign = -1;
-		str++;
-	}
-	while (ft_isdigit(*str))
-	{
-		result = result * 10 + (*str - '0');
-		if (result * sign > DBL_MAX)
-			return (DBL_MAX);
-		if (result * sign < -DBL_MAX)
-			return (-DBL_MAX);
-		str++;
-	}
-	result = ft_atoi_f_2(str, fraction, result);
-	return (result * sign);
+	res.x = (a.x * b.x) - (a.y * b.y);
+	res.y = (a.x * b.y) + (a.y * b.x);
+	return (res);
 }

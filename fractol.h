@@ -62,4 +62,6 @@ int			ft_strncmp(char *s1, char *s2, int n);
 int			mouse_scroll(int keycode, int x, int y, t_datas *vars);
 int			key_handler(int keycode, t_datas *vars);
 int			handle_close_window(t_datas *vars);
+int	ft_isdigit(char c);
+t_complex	add(t_complex a, t_complex b);
 #endif

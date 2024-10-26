@@ -23,7 +23,6 @@ void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
 int	calc_zn(t_datas vars)
 {
 	t_complex	z;
-	t_complex	temp;
 	int			i;
 
 	if (vars.is_julia == 1)
@@ -40,9 +39,7 @@ int	calc_zn(t_datas vars)
 	i = 1;
 	while (i < 100)
 	{
-		temp.x = (z.x * z.x) - (z.y * z.y) + vars.c.x;
-		temp.y = 2 * z.x * z.y + vars.c.y;
-		z = temp;
+		z = add(mult(z, z), vars.c);
 		if ((z.x * z.x) + (z.y * z.y) >= 4.0)
 			return (i * 0x03989e);
 		i++;
