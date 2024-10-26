@@ -6,13 +6,13 @@
 /*   By: mmorais <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 08:20:36 by mmorais           #+#    #+#             */
-/*   Updated: 2024/10/26 10:48:15 by mmorais          ###   ########.fr       */
+/*   Updated: 2024/10/26 12:06:45 by mmorais          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
+static void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
 {
 	char	*dst;
 
@@ -20,7 +20,7 @@ void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-int	calc_zn(t_datas vars)
+static int	calc_zn(t_datas vars)
 {
 	t_complex	z;
 	int			i;

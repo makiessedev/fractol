@@ -6,13 +6,13 @@
 /*   By: mmorais <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 10:50:43 by mmorais           #+#    #+#             */
-/*   Updated: 2024/10/26 10:59:38 by mmorais          ###   ########.fr       */
+/*   Updated: 2024/10/26 12:09:07 by mmorais          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int	handle_close_window(t_datas *vars)
+static int	handle_close_window(t_datas *vars)
 {
 	mlx_destroy_image(vars->mlx, vars->img.img);
 	mlx_destroy_window(vars->mlx, vars->mlx_win);
@@ -21,7 +21,7 @@ int	handle_close_window(t_datas *vars)
 	exit(0);
 }
 
-int	mouse_scroll(int keycode, int x, int y, t_datas *vars)
+static int	mouse_scroll(int keycode, int x, int y, t_datas *vars)
 {
 	(void)x;
 	(void)y;
@@ -33,7 +33,7 @@ int	mouse_scroll(int keycode, int x, int y, t_datas *vars)
 	return (0);
 }
 
-int	key_handler(int keycode, t_datas *vars)
+static int	key_handler(int keycode, t_datas *vars)
 {
 	if (keycode == XK_Escape)
 		handle_close_window(vars);

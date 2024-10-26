@@ -6,7 +6,7 @@
 /*   By: mmorais <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 08:06:33 by mmorais           #+#    #+#             */
-/*   Updated: 2024/10/26 10:47:37 by mmorais          ###   ########.fr       */
+/*   Updated: 2024/10/26 12:12:24 by mmorais          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef FRACTOL_H
@@ -16,9 +16,6 @@
 # include <X11/keysym.h>
 # include <X11/X.h>
 # include <unistd.h>
-
-// to remove
-# include <stdio.h>
 # include <stdlib.h>
 
 typedef struct s_img
@@ -61,9 +58,6 @@ void		hooks_wrapper(t_datas vars);
 void		mlx_init_datas(t_datas *vars);
 double		ft_atoi_f(const char *str);
 int			ft_strncmp(char *s1, char *s2, int n);
-int			mouse_scroll(int keycode, int x, int y, t_datas *vars);
-int			key_handler(int keycode, t_datas *vars);
-int			handle_close_window(t_datas *vars);
 int			ft_isdigit(char c);
 int			check_input(int ac, char **av);
 t_complex	add(t_complex a, t_complex b);
