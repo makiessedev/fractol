@@ -74,9 +74,10 @@ void	render_fractal(t_datas vars)
 int	main(int ac, char **av)
 {
 	t_datas	vars;
+	int		check;
 
-	if ((ac == 2 && ft_strncmp(av[1], "mandelbrot", 10) == 0)
-		|| (ac == 4 && ft_strncmp(av[1], "julia", 5) == 0))
+	check = check_input(ac, av);
+	if (check == 1 || check == 2)
 	{
 		mlx_init_datas(&vars);
 		if (ac == 2 && ft_strncmp(av[1], "mandelbrot", 10) == 0)
@@ -93,9 +94,7 @@ int	main(int ac, char **av)
 			vars.is_julia = 1;
 			render_fractal(vars);
 		}
+		hooks_wrapper(vars);
 	}
-	else
-		return (ft_putstr("Error: parameters"), 0);
-	hooks_wrapper(vars);
 	return (0);
 }

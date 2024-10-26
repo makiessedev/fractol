@@ -65,6 +65,7 @@ int			mouse_scroll(int keycode, int x, int y, t_datas *vars);
 int			key_handler(int keycode, t_datas *vars);
 int			handle_close_window(t_datas *vars);
 int			ft_isdigit(char c);
+int			check_input(int ac, char **av);
 t_complex	add(t_complex a, t_complex b);
 t_complex	mult(t_complex a, t_complex b);
 #endif
