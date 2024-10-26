@@ -6,7 +6,7 @@
 /*   By: mmorais <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 08:06:33 by mmorais           #+#    #+#             */
-/*   Updated: 2024/10/26 08:54:09 by mmorais          ###   ########.fr       */
+/*   Updated: 2024/10/26 09:43:55 by mmorais          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef FRACTOL_H
@@ -64,4 +64,5 @@ int			key_handler(int keycode, t_datas *vars);
 int			handle_close_window(t_datas *vars);
 int	ft_isdigit(char c);
 t_complex	add(t_complex a, t_complex b);
+t_complex	mult(t_complex a, t_complex b);
 #endif
